@@ -1,21 +1,25 @@
 import type { Component } from "solid-js";
-import TodoList from "./components/TodoList";
-import Input from "./components/Input";
+import { lazy } from "solid-js";
+import { Router, Routes, Route, Link } from "solid-app-router";
 import styles from "./App.module.css";
-import { useTodo } from "./store/todo";
+
+const IndexPage = lazy(() => import("./pages/Index"));
+const CatsPage = lazy(() => import("./pages/Cats"));
 
 const App: Component = () => {
-  const { state, addTodo, toggleTodo, removeTodo } = useTodo();
-
   return (
-    <div class={styles.App}>
-      <Input addTodo={addTodo} />
-      <TodoList
-        todos={state.todos}
-        toggleTodo={toggleTodo}
-        removeTodo={removeTodo}
-      />
-    </div>
+    <Router>
+      <div class={styles.App}>
+        <div class={styles.nav}>
+          <Link href="/">Todo Page</Link>
+          <Link href="/cats">Cats Page </Link>
+        </div>
+        <Routes>
+          <Route path="/" element={<IndexPage />} />
+          <Route path="/cats" element={<CatsPage />} />
+        </Routes>
+      </div>
+    </Router>
   );
 };
 
