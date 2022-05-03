@@ -22,6 +22,11 @@ export const useTodo = () => {
       { id: state.todos.length + 1, text, completed: false },
     ]);
   };
+
+  const removeTodo = (id: number) => {
+    setState("todos", (todos) => [...todos.filter((todo) => todo.id !== id)]);
+  };
+
   const toggleTodo = (id: number) => {
     setState(
       "todos",
@@ -31,6 +36,7 @@ export const useTodo = () => {
     );
   };
 
+  // mount時に適当なデータを入れてみる
   onMount(() => {
     addTodo("test");
   });
@@ -38,6 +44,7 @@ export const useTodo = () => {
   return {
     state,
     addTodo,
+    removeTodo,
     toggleTodo,
   };
 };
