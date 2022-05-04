@@ -2,12 +2,12 @@ import type { Component } from "solid-js";
 import { createResource, For, createSignal, Suspense } from "solid-js";
 import { Cat } from "../types";
 
-const fetchCats = async (skip: number) =>
+const fetchData = async (skip: number) =>
   (await fetch(`https://cataas.com/api/cats?skip=${skip}&limit=10`)).json();
 
 const CatsPage: Component = () => {
   const [skip, setSkip] = createSignal(0);
-  const [data, { refetch }] = createResource<Cat[], number>(skip, fetchCats);
+  const [data, { refetch }] = createResource<Cat[], number>(skip, fetchData);
 
   let input!: HTMLInputElement;
 
