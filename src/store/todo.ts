@@ -1,8 +1,9 @@
 import { createStore } from "solid-js/store";
 import { onMount } from "solid-js";
+import { ulid } from "ulid";
 
 export type Todo = {
-  id: number;
+  id: string;
   text: string;
   completed: boolean;
 };
@@ -19,15 +20,15 @@ export const useTodo = () => {
   const addTodo = (text: string) => {
     setState("todos", (todos) => [
       ...todos,
-      { id: state.todos.length + 1, text, completed: false },
+      { id: ulid(), text, completed: false },
     ]);
   };
 
-  const removeTodo = (id: number) => {
+  const removeTodo = (id: string) => {
     setState("todos", (todos) => [...todos.filter((todo) => todo.id !== id)]);
   };
 
-  const toggleTodo = (id: number) => {
+  const toggleTodo = (id: string) => {
     setState(
       "todos",
       (todo) => todo.id === id,
